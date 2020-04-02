@@ -4,7 +4,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const path = require('path');
 
 const resolve = (...args) => path.join(__dirname, '..', ...args);
-const baseStyleLoader = [MiniCssExtractPlugin.loader,'css-loader', 'postcss-loader']
+const baseStyleLoader = [MiniCssExtractPlugin.loader,'css-loader', 'postcss-loader'];
 
 module.exports = {
   mode: 'none',
@@ -22,9 +22,29 @@ module.exports = {
         use: baseStyleLoader,
       },
       {
-        test: /\.scss$/,
+        test: /\.s(?:c|a)ss$/,
         use: baseStyleLoader.concat('sass-loader'),
       },
+	    {
+	    	test: /\.(png|jpe?g|gif|webp|mp4|webm|ogg|mp3|wav|flac|aac|woff2?|eot|ttf|otf)(\?.*)?$/i,
+				use: [
+					{
+						loader: 'file-loader',
+						options: {
+							name: 'src/[name].[contenthash:8].[ext]', // 资源名称后面需要动态修改支持精准控制缓存
+						}
+					}
+				]
+	    },
+	    {
+	    	test: /\.js$/,
+		    loader: 'babel-loader',
+		    exclude: /node_modules/,
+		    include: [resolve('src')],
+		    // options: {
+			  //   cacheDirectory: true, // 设置了这个缓存后，动态改变.browserslistrc不会生效，生产环境禁用
+		    // }
+	    }
     ]
   },
   plugins: [
