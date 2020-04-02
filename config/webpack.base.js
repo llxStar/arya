@@ -1,6 +1,8 @@
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin');
+const TerserWebpackPlugin = require('terser-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const path = require('path');
 
@@ -15,6 +17,17 @@ module.exports = {
     path: resolve('dist'),
     filename: 'js/[name].[chunkhash:8].js',
     chunkFilename: 'js/[name].[chunkhash:8].js',
+  },
+  optimization: {
+    minimize: true, // 告知 webpack 使用 TerserPlugin 压缩 bundle
+    minimizer: [
+      new TerserWebpackPlugin({
+        exclude: /node_modules/,
+        include: /\.js$/, // 匹配的是文件
+        parallel: true,
+        cache: false, // 生产环境不缓存
+      }),
+    ]
   },
   module: {
     rules: [
@@ -67,6 +80,7 @@ module.exports = {
       filename: 'css/[name].[contenthash:8].css',
       chunkFilename: 'css/[id].[contenthash:8].css',
     }),
-    new OptimizeCssAssetsWebpackPlugin()
+    new OptimizeCssAssetsWebpackPlugin(),
+    new webpack.optimize.ModuleConcatenationPlugin(),
   ]
 };
