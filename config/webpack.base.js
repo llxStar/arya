@@ -31,11 +31,13 @@ module.exports = {
       }),
     ]
   },
+	resolve: {
+		extensions: ['.js', '.vue', '.scss', '.css'],
+	},
 	externals: {
   	vue: 'Vue',
 		'vue-router': 'VueRouter',
 		vuex: 'Vuex'
-		
 	},
 	module: {
     rules: [
