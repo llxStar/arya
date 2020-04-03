@@ -33,6 +33,13 @@ module.exports = {
   },
 	resolve: {
 		extensions: ['.js', '.vue', '.scss', '.css'],
+		alias: {
+			'@': resolve('src'), // src目录
+			'@img': resolve('src', 'assets', 'images'), // 公用的icon，小图片之类
+			'@font': resolve('src', 'assets', 'fonts'), // 字体文件
+			'@util': resolve('src', 'common', 'js'), // util包位置，以后可能会有公用css，先放common目录下，mixins之类的后面考虑下有没有更好的实现
+			'@comp': resolve('src', 'components'), // 公用组件，img loading toast confirm location-dialog之类的
+		},
 	},
 	externals: {
   	vue: 'Vue',
