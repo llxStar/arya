@@ -5,6 +5,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserWebpackPlugin = require('terser-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path');
 
 const resolve = (...args) => path.join(__dirname, '..', ...args);
@@ -30,7 +31,13 @@ module.exports = {
       }),
     ]
   },
-  module: {
+	externals: {
+  	vue: 'Vue',
+		'vue-router': 'VueRouter',
+		vuex: 'Vuex'
+		
+	},
+	module: {
     rules: [
       {
         test: /\.css$/,
@@ -88,5 +95,9 @@ module.exports = {
     new OptimizeCssAssetsWebpackPlugin(),
     new webpack.optimize.ModuleConcatenationPlugin(),
 	  new VueLoaderPlugin(),
+	  new CopyWebpackPlugin([{
+		  from: resolve('public'), // 都用path模块处理，避免不同系统/和\路径的区别
+		  to: resolve('dist'),
+	  }]),
   ]
 };
