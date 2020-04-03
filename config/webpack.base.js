@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin');
@@ -58,6 +59,10 @@ module.exports = {
 		    // options: {
 			  //   cacheDirectory: true, // 设置了这个缓存后，动态改变.browserslistrc不会生效，生产环境禁用
 		    // }
+	    },
+	    {
+	    	test: /\.vue$/,
+		    use: 'vue-loader'
 	    }
     ]
   },
@@ -82,5 +87,6 @@ module.exports = {
     }),
     new OptimizeCssAssetsWebpackPlugin(),
     new webpack.optimize.ModuleConcatenationPlugin(),
+	  new VueLoaderPlugin(),
   ]
 };
