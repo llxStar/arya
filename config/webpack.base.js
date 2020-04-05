@@ -54,6 +54,13 @@ module.exports = {
         },
       },
     },
+    removeAvailableModules: true, // 子模块移除已在vendor的chunk
+    removeEmptyChunks: true, // 移除空chunk
+    mergeDuplicateChunks: true, // 合并含有相同模块的chunk
+    flagIncludedChunks: true, // 告知webpack，若该chunk的父集被加载，则不必加载子集
+    providedExports: true, // Figure out which exports are provided by modules to generate more efficient code.
+    usedExports: true, // 跟上面的一样，用来标记导入导出，方便简化代码。Figure out which exports are used by modules to mangle export names, omit unused exports and generate more efficient code.
+    concatenateModules: true, // 简化代码，开启这个就不用在plugin里面再调用一次
   },
 	resolve: {
 		extensions: ['.js', '.vue', '.scss', '.css'],
@@ -126,7 +133,6 @@ module.exports = {
       chunkFilename: 'css/[id].[contenthash:8].css',
     }),
     new OptimizeCssAssetsWebpackPlugin(),
-    new webpack.optimize.ModuleConcatenationPlugin(),
 	  new VueLoaderPlugin(),
 	  new CopyWebpackPlugin([{
 		  from: resolve('public'), // 都用path模块处理，避免不同系统/和\路径的区别
