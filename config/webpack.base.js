@@ -85,7 +85,7 @@ module.exports = {
         use: baseStyleLoader,
       },
       {
-        test: /\.s(?:c|a)ss$/,
+        test: /\.s[ca]ss$/,
         use: baseStyleLoader.concat('sass-loader'),
       },
 	    {
