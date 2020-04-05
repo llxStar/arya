@@ -61,6 +61,7 @@ module.exports = {
     providedExports: true, // Figure out which exports are provided by modules to generate more efficient code.
     usedExports: true, // 跟上面的一样，用来标记导入导出，方便简化代码。Figure out which exports are used by modules to mangle export names, omit unused exports and generate more efficient code.
     concatenateModules: true, // 简化代码，开启这个就不用在plugin里面再调用一次
+    sideEffects: true, // 是否开启 无副作用代码检测，开启后根据package.json中的sideEffects来tree shaking副作用代码
   },
 	resolve: {
 		extensions: ['.js', '.vue', '.scss', '.css'],

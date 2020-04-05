@@ -48,5 +48,10 @@
   "dependencies": {
     "core-js": "^3.6.4",
     "@babel/runtime-corejs3": "^7.9.2"
-  }
+  },
+  "sideEffects": [
+    "*.css",
+    "*.scss",
+    "*.sass"
+  ]
 }
