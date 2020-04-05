@@ -28,6 +28,7 @@ module.exports = {
         include: /\.js$/, // 匹配的是文件
         parallel: true,
         cache: false, // 生产环境不缓存
+        extractComments: false, // 不抽离版权信息
       }),
     ],
     splitChunks: {
