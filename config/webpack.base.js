@@ -96,9 +96,9 @@ module.exports = {
 		    loader: 'babel-loader',
 		    exclude: /node_modules/,
 		    include: [resolve('src')],
-		    // options: {
-			  //   cacheDirectory: true, // 设置了这个缓存后，动态改变.browserslistrc不会生效，生产环境禁用
-		    // }
+		    options: {
+			    cacheDirectory: true, // 设置了这个缓存后，动态改变.browserslistrc不会生效，生产环境禁用
+		    }
 	    },
 	    {
 	    	test: /\.vue$/,
