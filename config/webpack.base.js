@@ -64,7 +64,18 @@ module.exports = {
         removeStyleLinkTypeAttributes: true,
         useShortDoctype: true
       },
-      chunksSortMode: 'auto'
+      chunksSortMode: (chunk1, chunk2) => {
+        const priority = []; // 设置高优先级entry文件注入顺序，从前往后
+        if (priority.length === 0) return 0;
+        const c1 = priority.indexOf(chunk1.names[0]); // 貌似names只有一个值
+        const c2 = priority.indexOf(chunk2.names[0]);
+        if (c1 === -1 && c2 === -1) return 0;
+        else if (c1 === -1) return 1;
+        else if (c2 === -1) return -1;
+        else if (c1 > c2) return 1;
+        else if (c1 < c2) return -1;
+        else return 0
+      }
     }),
 	  new VueLoaderPlugin(),
 	  new CopyWebpackPlugin([{
