@@ -82,5 +82,8 @@ module.exports = {
 		  from: resolve('public'), // 都用path模块处理，避免不同系统/和\路径的区别
 		  to: resolve('dist'),
 	  }]),
+    new webpack.ProvidePlugin({
+      Vue: ['vue/dist/vue.esm.js', 'default'],
+    })
   ]
 };

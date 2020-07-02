@@ -46,8 +46,9 @@
     "webpack-merge": "^4.2.2"
   },
   "dependencies": {
+    "@babel/runtime-corejs3": "^7.9.2",
     "core-js": "^3.6.4",
-    "@babel/runtime-corejs3": "^7.9.2"
+    "vue": "^2.6.11"
   },
   "sideEffects": [
     "*.css",
