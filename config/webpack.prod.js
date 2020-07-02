@@ -80,5 +80,10 @@ module.exports = merge({
       chunkFilename: 'css/[id].[contenthash:8].css',
     }),
     new OptimizeCssAssetsWebpackPlugin(),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production'),
+      }
+    }),
   ]
 }, baseConfig);
