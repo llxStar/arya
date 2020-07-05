@@ -5,6 +5,10 @@ html, body, ul, li, p {
     padding: 0;
 }
 
+html {
+    font-size: 26.66666666vw!important;
+}
+
 li {
     list-style: none;
 }
@@ -25,11 +29,6 @@ a {
     -webkit-appearance: none;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
-
-html {
-    font-size: 100px;
-}
-
 
 .w100 {
     width: 100%;
