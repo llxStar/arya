@@ -1,4 +1,7 @@
-import './css/base.scss';
-import './css/init.css';
+import App from './app';
+import '@css/init.css';
 
-console.log('i am ok');
+new Vue({
+  el: '#app',
+  render: h => h(App),
+});

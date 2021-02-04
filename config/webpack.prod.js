@@ -1,11 +1,12 @@
+process.env.NODE_ENV = 'production';
+
+const webpack = require('webpack');
 const TerserWebpackPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin');
 const { resolve } = require('./util');
 const baseConfig = require('./webpack.base');
 const merge = require('webpack-merge');
-
-const baseStyleLoader = [MiniCssExtractPlugin.loader,'css-loader', 'postcss-loader'];
 
 module.exports = merge({
   output: {
@@ -60,17 +61,13 @@ module.exports = merge({
   module: {
     rules: [
       {
-        test: /\.css$/,
-        use: baseStyleLoader,
-      },
-      {
-        test: /\.s[ca]ss$/,
-        use: baseStyleLoader.concat({
-          loader: 'sass-loader',
-          options: {
-            prependData: '',
-          },
-        }),
+        test: /\.js$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/,
+        include: [resolve('src')],
+        options: {
+          cacheDirectory: false, // 设置了这个缓存后，动态改变.browserslistrc不会生效，生产环境禁用
+        }
       },
     ]
   },
@@ -80,5 +77,10 @@ module.exports = merge({
       chunkFilename: 'css/[id].[contenthash:8].css',
     }),
     new OptimizeCssAssetsWebpackPlugin(),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production'),
+      }
+    }),
   ]
 }, baseConfig);
